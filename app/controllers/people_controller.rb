@@ -20,10 +20,8 @@ class PeopleController < ApplicationController
   end
 
   def destroy 
-  
     @person = Person.destroy(params[:id])
     redirect_to people_path
-  
   end
 
 
