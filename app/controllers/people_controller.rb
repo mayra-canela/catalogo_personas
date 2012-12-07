@@ -4,9 +4,13 @@ class PeopleController < ApplicationController
   end
 
   def update
-@person = Person.find(params[:id])
-    @person.update_attributes(params[:person])
+    @person = Person.find(params[:id])
+    if @person.update_attributes(params[:person])
     redirect_to people_path
+    else
+      flash[:alert]="Something went wrong #{@person.errors.messages}"
+      redirect_to edit_person_path(@person.id)
+    end
   end
 
   def edit
@@ -17,10 +21,15 @@ class PeopleController < ApplicationController
     @person= Person.new
   end
   
-  def create
+  def create 
    @person = Person.new(params[:person])
-   @person.save
-   redirect_to people_path
+   if @person.save
+    redirect_to people_path
+   else
+    flash[:alert]="Something went wrong #{@person.errors.messages}"
+    redirect_to new_person_path
+  end
+
   end
 
   def destroy 
