@@ -8,8 +8,9 @@ class PeopleController < ApplicationController
     if @person.update_attributes(params[:person])
     redirect_to people_path
     else
-      flash[:alert]="Something went wrong #{@person.errors.messages}"
       redirect_to edit_person_path(@person.id)
+      flash[:notice] = "FILL ALL FIELDS"
+
     end
   end
 
@@ -24,11 +25,11 @@ class PeopleController < ApplicationController
   def create 
    @person = Person.new(params[:person])
    if @person.save
+    flash[:notice] = "Post successfully created"
     redirect_to people_path
    else
-      redirect_to new_person_path
-      flash[:alert]="Something went wrong #{@person.errors.messages}"
-
+    redirect_to new_person_path
+    flash[:notice] = "FILL ALL FIELDS"
   end
 
   end
