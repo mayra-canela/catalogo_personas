@@ -26,8 +26,9 @@ class PeopleController < ApplicationController
    if @person.save
     redirect_to people_path
    else
-    flash[:alert]="Something went wrong #{@person.errors.messages}"
-    redirect_to new_person_path
+      redirect_to new_person_path
+      flash[:alert]="Something went wrong #{@person.errors.messages}"
+
   end
 
   end
